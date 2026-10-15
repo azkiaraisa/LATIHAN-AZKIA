@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tugas 2 - Program Hitung Umur</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            /* BACKGROUND MENARIK */
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+        }
+        .card {
+            background: white;
+            width: 400px;
+            max-width: 100%;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+        h2 { margin-bottom: 20px; color: #333; }
+        label { display: block; text-align: left; margin-bottom: 8px; font-weight: 600; }
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+        input:focus { border-color: #764ba2; outline: none; }
+        button {
+            width: 100%;
+            margin-top: 15px;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            background: #764ba2;
+            color: white;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover { background: #5a3d8a; }
+        #hasil {
+            margin-top: 20px;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: 600;
+            display: none;
+        }
+        .ok { background: #e8f5e9; color: #2e7d32; display: block; }
+        .err { background: #ffebee; color: #c62828; display: block; }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <h2>Program Hitung Umur</h2>
+        <label for="tahun">Masukkan Tahun Lahir:</label>
+        <input type="number" id="tahun" placeholder="contoh: 2007">
+        <button onclick="hitungUmur()">Hitung</button>
+        <p id="hasil"></p>
+    </div>
+
+    <script>
+        function hitungUmur() {
+            let input = document.getElementById("tahun").value;
+            let hasil = document.getElementById("hasil");
+            let tahunSekarang = new Date().getFullYear();
+
+            // TUGAS TAMBAHAN 1: Cek kosong
+            if (input === "" || input.trim() === "") {
+                hasil.className = "err";
+                hasil.textContent = "Tahun lahir tidak boleh kosong!";
+                return;
+            }
+
+            let tahunLahir = parseInt(input);
+
+            // TUGAS TAMBAHAN 2: Cek lebih besar dari tahun sekarang
+            if (tahunLahir > tahunSekarang) {
+                hasil.className = "err";
+                hasil.textContent = "Error: Tahun lahir tidak boleh lebih besar dari " + tahunSekarang + "!";
+                return;
+            }
+
+            if (tahunLahir < 1900) {
+                hasil.className = "err";
+                hasil.textContent = "Error: Tahun lahir tidak valid!";
+                return;
+            }
+
+            // Jika lolos validasi, hitung umur
+            let umur = tahunSekarang - tahunLahir;
+            hasil.className = "ok";
+            hasil.textContent = "Umur kamu sekarang adalah " + umur + " tahun.";
+        }
+    </script>
+
+</body>
+</html>
